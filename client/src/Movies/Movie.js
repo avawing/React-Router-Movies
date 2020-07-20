@@ -4,8 +4,7 @@ import axios from 'axios';
 
 const Movie = (props) => {
   const [movie, setMovie] = useState();
- 
-  const {url, path, params} = useRouteMatch();
+  const {params} = useRouteMatch();
 
   useEffect(() => {
     const id = params.id;
