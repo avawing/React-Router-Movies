@@ -3,7 +3,7 @@ import axios from 'axios';
 import Movie from './Movies/Movie'
 import MovieList from './Movies/MovieList'
 import SavedList from './Movies/SavedList';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 const App = () => {
   const [saved, setSaved] = useState([]); // Stretch: the ids of "saved" movies
@@ -14,6 +14,7 @@ const App = () => {
       axios
         .get('http://localhost:5000/api/movies')
         .then(response => {
+          console.log(response.data)
           setMovieList(response.data);
         })
         .catch(error => {
@@ -31,13 +32,22 @@ const App = () => {
     <div>
       <SavedList list={[ /* This is stretch */]} />
       <div>
-        <BrowserRouter>
+        
         <Link to = '/'>Home</Link>
         <Link to = '/movies'>Movie</Link>
 
-        <Route exact path = '/' component = {MovieList}></Route>
-        <Route path = '/movies' component = {Movie}></Route>
-        </BrowserRouter>
+        <Route exact path = '/' >
+          <MovieList movieList = {movieList}/>
+          </Route>
+        <Route path = '/movies/:id' render={props => {
+          const { id } = props.match.params;
+          return(
+            <div>
+              The id = {id}
+            </div>
+          )
+        }}></Route>
+        
       
       </div>
     </div>

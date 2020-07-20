@@ -1,11 +1,14 @@
 import React from 'react';
 
 const MovieList = props => {
+  const {movieList} = props;
+  console.log(movieList)
+  
   return (
     <div className="movie-list">
-      {/* {props.movies.map(movie => (
-        <MovieDetails key={movie.id} movie={movie} />
-      ))} */}
+      {movieList.map(movie => {
+        return <MovieDetails key={movie.id} movie={movie} />
+      })}
     </div>
   );
 }
